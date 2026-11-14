@@ -1,0 +1,12 @@
+Layer name: openai-layer
+Runtime: Python 3.12, architecture x86_64
+
+How it was built (AWS CloudShell):
+  mkdir -p layer/python
+  pip install openai -t layer/python --platform manylinux2014_x86_64 \
+      --only-binary=:all: --python-version 3.12 --implementation cp
+  cd layer && zip -r ../openai-layer.zip python
+
+The ZIP must contain a top-level "python/" folder, which Lambda adds to sys.path.
+Uploaded via Lambda > Layers > Create layer, then attached to open-ai-chatbot
+via Add a layer > Custom layers. The ZIP is included: openai-layer.zip
